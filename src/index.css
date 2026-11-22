@@ -1,0 +1,75 @@
+/* VOICE   personal site in the Apple product-page manner: calm, premium, generous air
+   IDEA    a bento box of tiles, each tile one fact about the work, like a product spec page
+   PICTURE the hero bento: big headline tile, profile tile, live figures, and a moving stack strip
+   COLOUR  #f5f5f7 ground, white tiles, ink #1d1d1f, one blue #0071e3; dark: #000 ground, #1c1c1e tiles
+   TYPE    Inter Tight 800 for headlines and figures, Inter for text
+   LAYOUT  laptop: 4-column bento up to 1200px; 720px: 2 columns; phone: one column, headline first */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(#f5f5f7, #000000);
+  --tile: light-dark(#ffffff, #1c1c1e);
+  --tile-2: light-dark(#fbfbfd, #2c2c2e);
+  --ink: light-dark(#1d1d1f, #f5f5f7);
+  --muted: light-dark(#6e6e73, #a1a1a6);
+  --line: light-dark(#e3e3e8, #38383a);
+  --blue: light-dark(#0071e3, #2997ff);
+  --blue-soft: light-dark(#e8f2fd, #0d2a47);
+  --green: light-dark(#1d9a4b, #30d158);
+  --shadow: light-dark(0 1px 2px rgba(0,0,0,.04), 0 0 0 transparent);
+  --shadow-lg: light-dark(0 18px 40px -18px rgba(0,0,0,.18), 0 0 0 transparent);
+}
+:root[data-theme='light'] { color-scheme: light; }
+:root[data-theme='dark'] { color-scheme: dark; }
+
+* { box-sizing: border-box; min-width: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 Inter, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+@layer components {
+  .tile { @apply rounded-[28px] p-6 sm:p-8; background: var(--tile); box-shadow: var(--shadow); }
+  .tile-hover { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+  .tile-hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .eyebrow { @apply text-[15px] font-semibold; color: var(--muted); }
+  .h-display { @apply font-display font-extrabold tracking-[-0.035em]; line-height: 1.04; }
+  .muted { color: var(--muted); }
+  .pill { @apply inline-flex items-center rounded-full px-3 py-1 text-[13px] font-medium; background: var(--tile-2); border: 1px solid var(--line); }
+  .btn { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 text-[15px] font-semibold transition; }
+  .btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .btn-blue { background: var(--blue); color: #fff; }
+  .btn-blue:hover { filter: brightness(1.08); }
+  .btn-soft { background: var(--blue-soft); color: var(--blue); }
+  .btn-soft:hover { filter: brightness(.97); }
+  .link-blue { color: var(--blue); font-weight: 600; }
+  .link-blue:hover { text-decoration: underline; }
+}
+
+/* glass nav */
+.glass { background: color-mix(in srgb, var(--tile) 72%, transparent); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+
+/* the one motion: tiles rise in on load; the stack strip drifts */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .7s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes drift { to { transform: translateX(-50%); } }
+.marquee { display: flex; width: max-content; animation: drift 38s linear infinite; }
+.marquee-mask { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-mask:hover .marquee { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .marquee { animation: none; }
+  .tile-hover:hover { transform: none; }
+}
+
+.grad-text { background: linear-gradient(90deg, var(--blue), light-dark(#5e5ce6, #64d2ff)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+select, input { font-size: 16px; }
