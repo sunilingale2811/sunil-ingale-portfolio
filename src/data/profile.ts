@@ -7,7 +7,7 @@ export const profile = {
   location: 'Pune, Maharashtra, India',
   openTo: 'Pune · Mumbai · Hyderabad · Remote',
   email: 'sunilingale2811@gmail.com',
-  linkedin: 'https://www.linkedin.com/in/sunil-ingale-727726451',
+  linkedin: 'https://www.linkedin.com/in/sunil-ingale-dev',
   summary:
     'I build frontends for complex enterprise products, mostly in healthcare SaaS. Right now I work on a multi-tenant data and AI platform built as React micro-frontends on Azure: data modelling and ingestion screens, AI tool gateway features, and the micro-frontend platform underneath.',
   focus: ['React 19 + TypeScript', 'Micro-frontends (Nx, Module Federation)', 'AI tool integrations (MCP, Azure OpenAI)'],
